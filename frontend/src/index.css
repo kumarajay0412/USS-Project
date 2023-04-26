@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Merriweather&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Heebo&display=swap");
+
+@layer base {
+
+    h1 {
+        @apply text-3xl
+    }
+
+    h2 {
+        @apply text-2xl
+    }
+
+    h3 {
+        @apply text-xl
+    }
+
+    h4 {
+        @apply text-lg
+    }
+
+    h5 {
+        @apply text-base
+    }
+
+    h6 {
+        @apply text-sm
+    }
+}
+
+
+body {
+    margin: 0;
+    background-color: #ffffff;
+}
+
+/* @media (max-width: 1100px) { */
