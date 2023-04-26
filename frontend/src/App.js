@@ -7,7 +7,7 @@ const Page404 = React.lazy(() => import("./pages/ErrorPage"));
 const Login = React.lazy(() => import("./pages/Login"));
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = React.useState(true);
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
 
 
 
