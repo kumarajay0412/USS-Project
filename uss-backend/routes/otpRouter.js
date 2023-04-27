@@ -6,7 +6,6 @@ const sendOTP = require("../utils/mailer");
 
 
 const createOTP = (email) => {
-    console.log(email)
     const otp = Math.floor(1000 + Math.random() * 9000);
     const expires = Date.now() + 300000; // 5 minutes (ms)
     const data = `${email}.${otp}.${expires}`; // email.otp.expiry_timestamp

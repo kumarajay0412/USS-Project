@@ -4,6 +4,8 @@ const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 const authenticate = require("../middleware/authenticate");
 const passport = require("passport");
+const sendMail = require("../utils/mailerEmail");
+
 userRouter.post(
   "/create/:id",
   passport.authenticate("jwt"),
@@ -59,6 +61,7 @@ userRouter.post(
       }
       try {
         await user.save();
+        await sendMail(email, password);
       } catch (error) {
         const err = new Error("could not sign up try again");
         return res.status(400).json({ error: "server error" });
