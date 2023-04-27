@@ -19,7 +19,7 @@ opts.secretOrKey = process.env.secretKey;
 
 exports.jwtPassport = passport.use(new JwtStrategy(opts,
     (jwt_payload, done) => {
-        User.findOne({ _id: jwt_payload._id }, (err, user) => {
+        User.findOne({ _id: jwt_payload?._id }, (err, user) => {
             if (err) {
                 return done(err, false);
             }
@@ -59,7 +59,6 @@ exports.matchIdandJwt = function (req, res, next) {
     if (req.params.id.length !== 24) {
         return res.status(401).send({ message: "invalid id used" });
     }
-    console.log(decoded._id, req.params.id);
     if (!(decoded._id === req.params.id)) {
         res.status(401).send({ message: "route id mismatch, use correct id" });
     }

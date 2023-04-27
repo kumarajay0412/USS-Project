@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { } from 'react'
 import { motion } from 'framer-motion'
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -6,10 +6,14 @@ import * as yup from 'yup'
 import { useToast } from '../hooks/useToast';
 import FormInputComponent from '../components/FormComponents/InputComponent';
 import { LoginApi } from '../services/Api';
+import { UserAtom } from '../states/userAtom';
+import { useRecoilState } from 'recoil';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
-
+    const [userAtom, setUserAtom] = useRecoilState(UserAtom);
     const { showToast, hideToast, ToastWrapper } = useToast();
+    let navigate = useNavigate();
 
     const validationSchema = yup.object().shape({
         email: yup.string().email('Invalid Email').required("Required"),
@@ -21,20 +25,21 @@ function Login() {
         resolver: yupResolver(validationSchema)
     });
 
-    const saveJwtToken = (token, user) => {
-        window.sessionStorage.setItem("jwtToken", JSON.stringify(token));
-        window.auth_token.setItem("user", JSON.stringify(user));
-    };
     const onSubmit = async (data) => {
         try {
             const response = await LoginApi(data.email, data.password);
             if (response?.status === 200) {
                 showToast("Login Successful", "success");
-                saveJwtToken(response?.data?.auth_token, response?.data?.user)
-                setTimeout(hideToast, 3000);
+                setUserAtom({ ...userAtom, loggedIn: true, user: response?.data })
+                navigate('/home')
+
             }
             else if (response?.status === 400) {
                 showToast("Invalid Credentials", "error");
+                setTimeout(hideToast, 3000);
+            }
+            else {
+                showToast("Request Failed");
                 setTimeout(hideToast, 3000);
             }
         }
@@ -43,6 +48,7 @@ function Login() {
             setTimeout(hideToast, 3000);
         }
     }
+
 
     return (<>
         <motion.div
@@ -65,9 +71,7 @@ function Login() {
                         className="font-bold font-inter  text-center lg:text-start text-[40px] text-black ">
                         Login to your account
                     </div>
-
                     <form id="email-form" onSubmit={handleSubmit(onSubmit)} className='flex flex-col mt-6'>
-
                         <FormInputComponent
                             label=' Email'
                             type='email'
@@ -87,7 +91,8 @@ function Login() {
                             required={true}
                         />
                         <button type='submit' form='email-form' className='w-full px-[32px] md:w-auto rounded border-purple border-[1px] mt-4 bg-purple hover:bg-white hover:text-purple text-white p-2 transition ease-in-out duration-150'>
-                            Log In                        </button>
+                            Log In
+                        </button>
                     </form>
 
                 </div>
