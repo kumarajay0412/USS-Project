@@ -183,3 +183,34 @@ export const RemoveUserFromOrgApi = async (organisationID, userID, id, token) =>
         return error;
     });
 }
+
+
+export const SendOTP = async (email) => {
+    let payload = {
+        "email": email,
+    }
+    return axios.post(BASE_URL_V1 + "otp/send", payload, {
+        "headers": headers,
+        "crossDomain": true,
+    }).then(function (response) {
+        return response;
+    }).catch(function (error) {
+        return error;
+    });
+}
+
+export const VerifyOtp = async (email, otp, hash) => {
+    let payload = {
+        "email": email,
+        "otp": otp,
+        "hash": hash
+    }
+    return axios.post(BASE_URL_V1 + "otp/verify", payload, {
+        "headers": headers,
+        "crossDomain": true,
+    }).then(function (response) {
+        return response;
+    }).catch(function (error) {
+        return error;
+    });
+}

@@ -176,7 +176,7 @@ function Home() {
 
 
     return (
-        <div className='h-[100vh] w-full '>
+        <div className='h-[100vh] w-full  overflow-hidden'>
             <div className='h-[8vh] flex justify-center'>
                 <div className='w-full flex items-center justify-between px-2'>
                     <img src={organisationDetails?.logo} className='h-[50px]' />

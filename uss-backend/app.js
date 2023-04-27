@@ -6,7 +6,7 @@ const passport = require("passport");
 require("dotenv/config");
 const userRouter = require("./routes/userRouter");
 const organisationRouter = require("./routes/organisationRouter");
-
+const otpRouter = require("./routes/otpRouter");
 const db = process.env.MONGO_CONNECTION_URL;
 
 const options = {
@@ -33,8 +33,10 @@ app.use(passport.initialize());
 
 app.use("/user", userRouter);
 app.use("/organisation", organisationRouter);
+app.use("/otp", otpRouter);
 
 // 404 handler
+
 app.use((req, res) => {
   res.status(404).json({ message: "Not Found" });
 });

@@ -32,8 +32,6 @@ function AddContent(props) {
             props?.setContentData(data?.test);
             showToast("Directory created Successful", "success");
             props?.setIsOpenAddDirector(false)
-
-
         }
         catch (error) {
             console.log(error)
@@ -41,11 +39,9 @@ function AddContent(props) {
             setTimeout(hideToast, 3000);
         }
     }
-
-
     return (
         <div>
-            <form onSubmit={handleSubmit(onSubmit)} className="p-2 justify-center flex flex-col justify-items-center items-center  overflow-scroll">
+            <form onSubmit={handleSubmit(onSubmit)} className="p-2 justify-center flex flex-col justify-items-center items-center">
                 <ul className="gap-[10px] flex flex-col">
                     {fields.map((item, index) => {
                         return (
