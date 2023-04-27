@@ -10,8 +10,6 @@ const createOTP = (email) => {
     const otp = Math.floor(1000 + Math.random() * 9000);
     const expires = Date.now() + 300000; // 5 minutes (ms)
     const data = `${email}.${otp}.${expires}`; // email.otp.expiry_timestamp
-    console.log("Fkfkfkfkkf", otp, process.env.SECRET_KEY)
-
     const hash = CryptoJS.HmacSHA256(data, 'sfdfddfdjbfjbsbjdjfbsdbfkdsbkfbksdbfjkdbskkf');
     const fullHash = `${hash}.${expires}`; // hash.expiry_timestamp
 
