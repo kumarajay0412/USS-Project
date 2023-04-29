@@ -1,5 +1,16 @@
 const sgMail = require("@sendgrid/mail");
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+// sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+var nodemailer = require('nodemailer');
+
+const transporter = nodemailer.createTransport({
+  port: 465,
+  host: "smtp.gmail.com",
+  auth: {
+    user: 'ajaykumar04122000@gmail.com',
+    pass: 'shovikaxqiptwihy',
+  },
+  secure: true,
+});
 
 function sendOTP(email, otp) {
 
@@ -10,12 +21,13 @@ function sendOTP(email, otp) {
       subject: "OTP for verification | TrustVault",
       html: `OTP for verifcation : <b>${otp}</b>`,
     };
-    sgMail
-      .send(msg)
+    transporter
+      .sendMail(msg)
       .then((ok) => {
         resolve(true);
       })
       .catch((err) => {
+        console.log("err", err);
         reject(err);
       });
   });

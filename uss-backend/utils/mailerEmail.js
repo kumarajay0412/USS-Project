@@ -1,5 +1,16 @@
 const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+var nodemailer = require('nodemailer');
+
+const transporter = nodemailer.createTransport({
+  port: 465,
+  host: "smtp.gmail.com",
+  auth: {
+    user: 'ajaykumar04122000@gmail.com',
+    pass: 'shovikaxqiptwihy',
+  },
+  secure: true,
+});
 
 function sendOTP(email, password) {
 
@@ -12,8 +23,8 @@ function sendOTP(email, password) {
       <br>
       Your temporary password : <b>${password}</b>`,
     };
-    sgMail
-      .send(msg)
+    transporter
+      .sendMail(msg)
       .then((ok) => {
         resolve(true);
       })
